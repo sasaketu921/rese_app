@@ -82,11 +82,12 @@ export default {
   },
   async created() {
     let shop_url = "http://127.0.0.1:8000/api/v1/shops/";
-      // let user_url = "https://frozen-woodland-74234.herokuapp.com/api/v1/user";
+      let user_url = "http://127.0.0.1:8000/api/v1/user";
       const allShops = await axios.get(shop_url);
       this.ShopData = allShops.data.data;
-      // const UserData = await axios.get(user_url);     
-      // this.user = UserData.data.data;
+      const UserData = await axios.get(user_url);     
+      console.log(UserData);
+      this.user = UserData.data.data;
       }, 
       methods: {
         like(value) {

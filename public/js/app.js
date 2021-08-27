@@ -2186,22 +2186,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var _this = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-      var shop_url, allShops;
+      var shop_url, user_url, allShops, UserData;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              shop_url = "http://127.0.0.1:8000/api/v1/shops/"; // let user_url = "https://frozen-woodland-74234.herokuapp.com/api/v1/user";
-
-              _context.next = 3;
+              shop_url = "http://127.0.0.1:8000/api/v1/shops/";
+              user_url = "http://127.0.0.1:8000/api/v1/user";
+              _context.next = 4;
               return axios__WEBPACK_IMPORTED_MODULE_1___default().get(shop_url);
 
-            case 3:
+            case 4:
               allShops = _context.sent;
-              _this.ShopData = allShops.data.data; // const UserData = await axios.get(user_url);     
-              // this.user = UserData.data.data;
+              _this.ShopData = allShops.data.data;
+              _context.next = 8;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default().get(user_url);
 
-            case 5:
+            case 8:
+              UserData = _context.sent;
+              console.log(UserData);
+              _this.user = UserData.data.data;
+
+            case 11:
             case "end":
               return _context.stop();
           }
