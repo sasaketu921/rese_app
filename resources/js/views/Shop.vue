@@ -42,17 +42,20 @@
             <button class="rounded p-1" @click="$router.push({ name: 'Detail', params: { shop_id: item.shops_id}})">詳しく見る</button>
             
             <!-- いいねボタン -->
-          　<button v-if="!liked" type="button" class="btn btn-primary btn-sm ml-2" @click="like(item.shops_id)"  >Like
+            <div v-if="liked">
+              　<button  type="button" class="btn btn-primary btn-sm ml-2" @click="like(item.shops_id); liked = !liked">いいね
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-suit-heart-fill ml-1 " viewBox="0 0 16 16">
+                <path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"/>
+                </svg>
+              </button>
+            </div>
+            <div v-else>
+          　<button  type="button" class="btn btn-primary btn-sm ml-2" @click="unlike(item.shops_id), liked = !liked" >いいねを取り消す
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-suit-heart-fill ml-1 " viewBox="0 0 16 16">
             <path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"/>
             </svg>
           </button>
-
-          　<button v-else type="button" class="btn btn-primary btn-sm ml-2" @click="unlike(item.shops_id), liked = !liked" >Liked
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-suit-heart-fill ml-1 " viewBox="0 0 16 16">
-            <path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"/>
-            </svg>
-          </button>
+            </div>
 
           </div>
       </div>
@@ -76,7 +79,7 @@ export default {
     return {
       ShopData: [],
       user:[],
-      liked: false,
+      liked: true,
     };
     
   },
@@ -84,23 +87,21 @@ export default {
     let shop_url = "http://127.0.0.1:8000/api/v1/shops/";
       let user_url = "http://127.0.0.1:8000/api/v1/user";
       const allShops = await axios.get(shop_url);
-      this.ShopData = allShops.data.data;
       const UserData = await axios.get(user_url);     
+      this.ShopData = allShops.data.data;
       console.log(UserData);
       this.user = UserData.data.data;
       }, 
       methods: {
         like(value) {
-          this.liked = true;
           console.log(this.liked);
           const shop_id = value;
+          let url = "/api/v1/shops/" + shop_id + "/like"; 
           let like_url = "/api/v1/shops";
-          let url = "/api/v1/shops/" + shop_id + "/like";
-          axios.post(url);
+          axios.post(url);//お気に入りshop_idを送信
           axios.get(like_url);
           },
         unlike(value) {
-          this.liked = false;
           console.log(this.liked);
           const shop_id = value;
           let url = "/api/v1/shops/" + shop_id + "/unlike";

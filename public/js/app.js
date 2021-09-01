@@ -2168,6 +2168,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2179,7 +2182,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       ShopData: [],
       user: [],
-      liked: false
+      liked: true
     };
   },
   created: function created() {
@@ -2198,12 +2201,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
             case 4:
               allShops = _context.sent;
-              _this.ShopData = allShops.data.data;
-              _context.next = 8;
+              _context.next = 7;
               return axios__WEBPACK_IMPORTED_MODULE_1___default().get(user_url);
 
-            case 8:
+            case 7:
               UserData = _context.sent;
+              _this.ShopData = allShops.data.data;
               console.log(UserData);
               _this.user = UserData.data.data;
 
@@ -2217,16 +2220,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   methods: {
     like: function like(value) {
-      this.liked = true;
       console.log(this.liked);
       var shop_id = value;
-      var like_url = "/api/v1/shops";
       var url = "/api/v1/shops/" + shop_id + "/like";
-      axios__WEBPACK_IMPORTED_MODULE_1___default().post(url);
+      var like_url = "/api/v1/shops";
+      axios__WEBPACK_IMPORTED_MODULE_1___default().post(url); //お気に入りshop_idを送信
+
       axios__WEBPACK_IMPORTED_MODULE_1___default().get(like_url);
     },
     unlike: function unlike(value) {
-      this.liked = false;
       console.log(this.liked);
       var shop_id = value;
       var url = "/api/v1/shops/" + shop_id + "/unlike";
@@ -39740,79 +39742,84 @@ var render = function() {
               [_vm._v("詳しく見る")]
             ),
             _vm._v(" "),
-            !_vm.liked
-              ? _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary btn-sm ml-2",
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        return _vm.like(item.shops_id)
-                      }
-                    }
-                  },
-                  [
-                    _vm._v("Like\n          "),
-                    _c(
-                      "svg",
-                      {
-                        staticClass: "bi bi-suit-heart-fill ml-1 ",
-                        attrs: {
-                          xmlns: "http://www.w3.org/2000/svg",
-                          width: "16",
-                          height: "16",
-                          fill: "currentColor",
-                          viewBox: "0 0 16 16"
+            _vm.liked
+              ? _c("div", [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary btn-sm ml-2",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          _vm.like(item.shops_id)
+                          _vm.liked = !_vm.liked
                         }
-                      },
-                      [
-                        _c("path", {
-                          attrs: {
-                            d:
-                              "M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"
-                          }
-                        })
-                      ]
-                    )
-                  ]
-                )
-              : _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary btn-sm ml-2",
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        _vm.unlike(item.shops_id), (_vm.liked = !_vm.liked)
                       }
-                    }
-                  },
-                  [
-                    _vm._v("Liked\n          "),
-                    _c(
-                      "svg",
-                      {
-                        staticClass: "bi bi-suit-heart-fill ml-1 ",
-                        attrs: {
-                          xmlns: "http://www.w3.org/2000/svg",
-                          width: "16",
-                          height: "16",
-                          fill: "currentColor",
-                          viewBox: "0 0 16 16"
-                        }
-                      },
-                      [
-                        _c("path", {
+                    },
+                    [
+                      _vm._v("いいね\n              "),
+                      _c(
+                        "svg",
+                        {
+                          staticClass: "bi bi-suit-heart-fill ml-1 ",
                           attrs: {
-                            d:
-                              "M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"
+                            xmlns: "http://www.w3.org/2000/svg",
+                            width: "16",
+                            height: "16",
+                            fill: "currentColor",
+                            viewBox: "0 0 16 16"
                           }
-                        })
-                      ]
-                    )
-                  ]
-                )
+                        },
+                        [
+                          _c("path", {
+                            attrs: {
+                              d:
+                                "M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"
+                            }
+                          })
+                        ]
+                      )
+                    ]
+                  )
+                ])
+              : _c("div", [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary btn-sm ml-2",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          _vm.unlike(item.shops_id), (_vm.liked = !_vm.liked)
+                        }
+                      }
+                    },
+                    [
+                      _vm._v("いいねを取り消す\n          "),
+                      _c(
+                        "svg",
+                        {
+                          staticClass: "bi bi-suit-heart-fill ml-1 ",
+                          attrs: {
+                            xmlns: "http://www.w3.org/2000/svg",
+                            width: "16",
+                            height: "16",
+                            fill: "currentColor",
+                            viewBox: "0 0 16 16"
+                          }
+                        },
+                        [
+                          _c("path", {
+                            attrs: {
+                              d:
+                                "M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"
+                            }
+                          })
+                        ]
+                      )
+                    ]
+                  )
+                ])
           ])
         ])
       }),
